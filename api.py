@@ -14,8 +14,8 @@ with open("credenciais.json", mode="w") as arquivo:
   arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
 conta = ServiceAccountCredentials.from_json_keyfile_name("credenciais.json")
 api = gspread.authorize(conta)
-planilha = api.open_by_key("1ZDyxhXlCtCjMbyKvYmMt_8jAKN5JSoZ7x3MqlnoyzAM")
-sheet = planilha.worksheet("Sheet1")
+planilha = api.open_by_key("1cq-t7IEBSaBre7acHPVzqmegtkkhP9GgpMHpIyH5ZUw")
+sheet = planilha.worksheet("dados")
 app = Flask(__name__)
 
 
@@ -87,7 +87,7 @@ def dedoduro():
 
 @app.route("/dedoduro2")
 def dedoduro2():
-  sheet.append_row(["Álvaro", "Justen", "a partir do Flask"])
+  sheet.append_row(["Natali", "Carvalho", "a partir do Flask"])
   return "Planilha escrita!"
 
 
