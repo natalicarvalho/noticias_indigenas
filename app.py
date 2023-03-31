@@ -92,6 +92,7 @@ def dedoduro2():
 
 
 @app.route("/telegram-bot", methods=["POST"])
+def telegram_bot():
 for update in dados:
   update_id = update["update_id"]
 
