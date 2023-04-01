@@ -8,6 +8,7 @@ from tchan import ChannelScraper
 from bs4 import BeautifulSoup
 from datetime import datetime
 import xmltodict
+import json
 
 requisicao = requests.get(f'https://feeds.folha.uol.com.br/ambiente/rss091.xml','https://extra.globo.com/rss.xml', 'https://www.gazetadopovo.com.br/rss/', 'https://g1.globo.com/rss/g1/', 'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss')
 html = BeautifulSoup(requisicao.content)
