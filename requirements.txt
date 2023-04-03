@@ -4,7 +4,7 @@ tchan
 requests
 gspread
 oauth2client
-BeautifulSoup
+BeautifulSoup4
 datetime
 xmltodict
 json
