@@ -18,19 +18,59 @@ planilha = api.open_by_key("1cq-t7IEBSaBre7acHPVzqmegtkkhP9GgpMHpIyH5ZUw")
 sheet = planilha.worksheet("dados")
 app = Flask(__name__)
 
-
-def ultimas_promocoes():
-  scraper = ChannelScraper()
-  contador = 0
-  resultado = []
-  for message in scraper.messages("promocoeseachadinhos"):
-    contador += 1
-    texto = message.text.strip().splitlines()[0]
-    resultado.append(f"{message.created_at} {texto}")
-    if contador == 10:
-      return resultado
-
+lista_url = ['https://feeds.folha.uol.com.br/ambiente/rss091.xml','https://extra.globo.com/rss.xml', 'https://www.gazetadopovo.com.br/rss/', 'https://g1.globo.com/rss/g1/', 'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss']
+for url in lista_url:     # por item
+    print(url)
     
+!pip install xmltodict
+
+import xmltodict
+import requests
+
+def items(url):
+    resp = requests.get(url)
+    data = xmltodict.parse(resp.content)
+    return data['rss']['channel']['item']
+
+def pega_link(url_jornal):
+  resultado = items(url_jornal)
+  lista = []
+  for item in resultado:
+    url = item['link']
+    desc = item['description']
+    tit = item['title']
+    dat = item['pubDate']
+    resultado_formatado = {"url": url,
+                          "descricao": desc, 
+                          "titulo": tit,
+                          "data": dat
+                          }
+    lista.append(resultado_formatado)
+
+  termos = ['indígena', 'Indígena', 'Yanomami', 'índio', 'demarcação']
+  links_que_tem_termos = []
+
+  for item_formatado in lista:
+  
+    for termo in termos:
+      if termo in item_formatado["descricao"]:
+        print(item_formatado["titulo"])
+       
+        links_que_tem_termos.append([termo, item_formatado["url"]])
+        #break  
+
+  return links_que_tem_termos
+
+links_salvos = []
+for link in lista_url:
+  print(link)
+  
+  resultados_link = pega_link(link)
+  if resultados_link is not None:
+    for x in resultados_link:
+        print(resultados_link)
+
+
 menu = """
 <a href="/">Página inicial</a> | <a href="/promocoes">PROMOÇÕES</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
 <br>
