@@ -122,7 +122,7 @@ def telegram_bot():
 @app.route("/jornais")
 def qualquer_coisa():
     resp = requests.get('https://uol.com.br')
-    mensagem = {"chat_id": 42, "text": resp.text()}
+    mensagem = {"chat_id": chat_id, "text": resp.text()}
     requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
     return "Aqui está os termos"
                         
