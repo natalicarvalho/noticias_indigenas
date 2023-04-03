@@ -44,6 +44,8 @@ def pega_link(url_jornal):
     url = item['link']
     desc = item['description']
     tit = item['title']
+    if 'title' not in item:
+      continue  # para o processamento desse item e parte para o próximo
     dat = item.get('pubDate')
     resultado_formatado = {"url": url,
                           "descricao": desc, 
