@@ -117,7 +117,7 @@ def dedoduro2():
   sheet.append_row(["Natali", "Carvalho", "a partir do Flask"])
   return "Planilha escrita!"
               
- @app.route("/qualquer-coisa")
+ @app.route("/jornais")
 def qualquer_coisa():
     resp = requests.get('https://uol.com.br)
     mensagem = {"chat_id": 42, "text": resp.text()}
