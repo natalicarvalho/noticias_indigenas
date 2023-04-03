@@ -24,13 +24,12 @@ app = Flask(__name__)
 lista_url = ['https://feeds.folha.uol.com.br/ambiente/rss091.xml','https://extra.globo.com/rss.xml', 'https://www.gazetadopovo.com.br/rss/', 'https://g1.globo.com/rss/g1/', 'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss']
 for url in lista_url:     # por item
     print(url)
-    
 
 def items(url):
     resp = requests.get(url)
     data = xmltodict.parse(resp.content)
     return data['rss']['channel']['item']
-
+  
 def pega_link(url_jornal):
   resultado = items(url_jornal)
   lista = []
@@ -58,11 +57,7 @@ def pega_link(url_jornal):
         links_que_tem_termos.append([termo, item_formatado["url"]])
         #break  
 
-  return links_que_tem_termos
-
-links_salvos = []
-for link in lista_url:
-  print(link)
+  return links_que_tem_termos 
   
 links_salvos = []
 for link in lista_url:
@@ -75,14 +70,13 @@ for link in lista_url:
 
   
   links_salvos.append(resultados_link)
-  
+
 dados_link = []
 
 for dado in links_salvos:
   for item in dado:
     print(item)
-    dados_link.append(item)
-  
+    dados_link.append(item)  
 
 
 
@@ -122,3 +116,5 @@ def qualquer_coisa():
     mensagem = {"chat_id": 42, "text": resp.text()}
     requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
     return "Aqui está os termos"
+                        
+ 
