@@ -4,7 +4,10 @@ import gspread
 import requests
 from flask import Flask, request
 from oauth2client.service_account import ServiceAccountCredentials
-
+import xmltodict
+import requests
+from tchan import ChannelScraper
+from bs4 import BeautifulSoup
 
 
 TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
@@ -23,9 +26,6 @@ for url in lista_url:     # por item
     print(url)
     
 !pip install xmltodict
-
-import xmltodict
-import requests
 
 def items(url):
     resp = requests.get(url)
