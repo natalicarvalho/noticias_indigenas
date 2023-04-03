@@ -65,10 +65,26 @@ links_salvos = []
 for link in lista_url:
   print(link)
   
+links_salvos = []
+for link in lista_url:
+  print(link)
+  
   resultados_link = pega_link(link)
   if resultados_link is not None:
     for x in resultados_link:
         print(resultados_link)
+
+  
+  links_salvos.append(resultados_link)
+  
+dados_link = []
+
+for dado in links_salvos:
+  for item in dado:
+    print(item)
+    dados_link.append(item)
+  
+
 
 
 menu = """
