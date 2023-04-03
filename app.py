@@ -28,8 +28,14 @@ for url in lista_url:     # por item
 
 def items(url):
     resp = requests.get(url)
-    data = xmltodict.parse(resp.content)
+    try:
+        data = xmltodict.parse(resp.content)
+    except Exception as error:
+        print(f"Erro baixando dados de {url}: {error}")
+        return []
+        
     return data['rss']['channel']['item']
+
   
 def pega_link(url_jornal):
   resultado = items(url_jornal)
