@@ -114,8 +114,8 @@ def dedoduro2():
  
 @app.route("/jornais", methods["POST"])
 def jornais():
-    resp = requests.get('https://uol.com.br')
-    mensagem = {"chat_id": 42, "text": resp.text()}
+    resp = requests.get(url)
+    mensagem = {"chat_id": chat, "text": resp.text()}
     requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
 
  
