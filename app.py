@@ -4,15 +4,8 @@ import gspread
 import requests
 from flask import Flask, request
 from oauth2client.service_account import ServiceAccountCredentials
-from tchan import ChannelScraper
-from bs4 import BeautifulSoup
-from datetime import datetime
-import xmltodict
-import json
 
-requisicao = requests.get(f'https://feeds.folha.uol.com.br/ambiente/rss091.xml','https://extra.globo.com/rss.xml', 'https://www.gazetadopovo.com.br/rss/', 'https://g1.globo.com/rss/g1/', 'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss')
-html = BeautifulSoup(requisicao.content)
-indigenas = html.find("div").text
+
 
 TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
 TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
