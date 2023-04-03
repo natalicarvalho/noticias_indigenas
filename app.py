@@ -67,15 +67,9 @@ def dedoduro():
 def dedoduro2():
   sheet.append_row(["Natali", "Carvalho", "a partir do Flask"])
   return "Planilha escrita!"
-
-
-@app.route("/telegram-bot", methods=["POST"])
-def telegram_bot():
-  update = request.json
-  chat_id = update["message"]["chat"]["id"]
-  message = update["message"]["text"]
-  nova_mensagem = {"chat_id": chat_id, "text": indigenas}
-  mensagem_if = {"chat_id: chat_id, "text": f"Olá, tudo bem? Quantidade de reportagens por tema, selecione o número para receber as urls"
-  
-  requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
-  return "ok"
+              
+ @app.route("/qualquer-coisa")
+def qualquer_coisa():
+    resp = requests.get('https://uol.com.br)
+    mensagem = {"chat_id": 42, "text": resp.text()}
+    requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
