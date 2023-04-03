@@ -120,7 +120,7 @@ def telegram_bot():
   requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
   
 @app.route("/jornais")
-def qualquer_coisa():
+def jornais():
     resp = requests.get('https://uol.com.br')
     mensagem = {"chat_id": chat_id, "text": resp.text()}
     requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
