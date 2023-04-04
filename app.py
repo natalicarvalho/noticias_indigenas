@@ -122,5 +122,5 @@ def jornais():
     resp = requests.get(url)
     mensagem = {"chat_id": chat, "text": resp.text()}
     requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
-
+    return "Aqui está os termos"
  
