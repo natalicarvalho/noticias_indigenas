@@ -78,7 +78,7 @@ def raspa_dados():
     
     links_salvos.append(resultados_link)
  
-return resultados_link
+
 
 dados_link = []
 
