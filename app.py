@@ -77,7 +77,8 @@ def raspa_dados():
         print(resultados_link)
     
     links_salvos.append(resultados_link)
-   return links_salvos
+ 
+return links_salvos
 
 dados_link = []
 
