@@ -4,7 +4,6 @@ import gspread
 import requests
 import xmltodict
 import requests
-from tchan import ChannelScraper
 from bs4 import BeautifulSoup
 from flask import Flask, request
 from oauth2client.service_account import ServiceAccountCredentials
