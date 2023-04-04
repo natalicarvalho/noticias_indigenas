@@ -118,17 +118,17 @@ def envia_mensagem():
     update_id = update["update_id"]
 
   # Extrai dados para mostrar mensagem recebida
- first_name = update["message"]["from"]["first_name"]
- sender_id = update["message"]["from"]["id"]
- if "text" not in update["message"]:
-  continue  # Essa mensagem não é um texto!
- message = update["message"]["text"]
- chat_id = update["message"]["chat"]["id"]
- datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
- if "username" in update["message"]["from"]:
+  first_name = update["message"]["from"]["first_name"]
+  sender_id = update["message"]["from"]["id"]
+  if "text" not in update["message"]:
+    continue  # Essa mensagem não é um texto!
+  message = update["message"]["text"]
+  chat_id = update["message"]["chat"]["id"]
+  datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
+  if "username" in update["message"]["from"]:
     username = update["message"]["from"]["username"]
- else:
-  username = "[não definido]"
+  else:
+    username = "[não definido]"
 print(f"[{datahora}] Nova mensagem de {first_name} @{username} ({chat_id}): {message}")
 mensagens.append([datahora, "recebida", username, first_name, chat_id, message])
   
