@@ -110,24 +110,24 @@ def envia_links(dados, opcao):
   return texto
 
 def envia_mensagem():
-  resposta = requests.get(f"https://api.telegram.org/bot{token}/getUpdates?offset={update_id + 1}")
-  dados = resposta.json()["result"]  # lista de dicionários (cada dict é um "update")
-  print(f"Temos {len(dados)} novas atualizações:")
-  mensagens = []
-  for update in dados:
-    update_id = update["update_id"]
+ resposta = requests.get(f"https://api.telegram.org/bot{token}/getUpdates?offset={update_id + 1}")
+ dados = resposta.json()["result"]  # lista de dicionários (cada dict é um "update")
+ print(f"Temos {len(dados)} novas atualizações:")
+ mensagens = []
+ for update in dados:
+  update_id = update["update_id"]
 
   # Extrai dados para mostrar mensagem recebida
-    first_name = update["message"]["from"]["first_name"]
-    sender_id = update["message"]["from"]["id"]
-    if "text" not in update["message"]:
+   first_name = update["message"]["from"]["first_name"]
+   sender_id = update["message"]["from"]["id"]
+   if "text" not in update["message"]:
       continue  # Essa mensagem não é um texto!
-    message = update["message"]["text"]
-    chat_id = update["message"]["chat"]["id"]
-    datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
-    if "username" in update["message"]["from"]:
+   message = update["message"]["text"]
+   chat_id = update["message"]["chat"]["id"]
+   datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
+   if "username" in update["message"]["from"]:
       username = update["message"]["from"]["username"]
-    else:
+   else:
     username = "[não definido]"
   print(f"[{datahora}] Nova mensagem de {first_name} @{username} ({chat_id}): {message}")
   mensagens.append([datahora, "recebida", username, first_name, chat_id, message])
@@ -139,15 +139,14 @@ def envia_mensagem():
     texto_resposta = "Olá você iniciou o Bot de Notícias."
     texto_resposta = conta_reportagem(dados_estast['termo'],texto_resposta) 
   else:
-    try:  
+    try:
       if int(message) < len(dados_estast['termo']):
         texto_resposta = envia_links(dados_estast, int(message))
     except:
       texto_resposta = "Não entendi a mensagem."  
-
-  nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
-  requests.post(f"https://api.telegram.org/bot{token}/sendMessage", data=nova_mensagem)
-  mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta,])
+ nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
+ requests.post(f"https://api.telegram.org/bot{token}/sendMessage", data=nova_mensagem)
+ mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta,])
 
 menu = """
 <a href="/">Página inicial</a> | <a href="/promocoes">PROMOÇÕES</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
