@@ -77,6 +77,7 @@ def raspa_dados():
         print(resultados_link)
     
     links_salvos.append(resultados_link)
+   return raspa_dados
 
 dados_link = []
 
@@ -146,6 +147,8 @@ else:
  nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
  requests.post(f"https://api.telegram.org/bot{token}/sendMessage", data=nova_mensagem)
  mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta,])
+
+return envia_mensagem
 
 menu = """
 <a href="/">Página inicial</a> | <a href="/promocoes">PROMOÇÕES</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
