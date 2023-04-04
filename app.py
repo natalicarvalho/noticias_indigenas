@@ -117,7 +117,7 @@ def dedoduro2():
   return "Planilha escrita!"
          
  
-@app.route("/jornais", methods["POST"])
+@app.route("/jornais")
 def jornais():
     resp = requests.get(url)
     mensagem = {"chat_id": chat, "text": resp.text()}
