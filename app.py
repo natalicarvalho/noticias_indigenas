@@ -83,7 +83,7 @@ for dado in links_salvos:
   for item in dado:
     print(item)
     dados_link.append(item)  
-
+    
 def conta_reportagem(dados, texto_resposta):
     header = "\nQuantidade de reportagens por tema, selecione o número para receber as urls:\n"
     texto_resposta += header
@@ -95,7 +95,7 @@ def conta_reportagem(dados, texto_resposta):
     
     return texto_resposta
   
- def envia_links(dados, opcao):
+def envia_links(dados, opcao):
   opcao = opcao - 1
   termo = dados['termo'].value_counts().keys()[opcao]
   links_dos_termos = dados[dados['termo']== termo]['link']
@@ -104,6 +104,7 @@ def conta_reportagem(dados, texto_resposta):
    texto = texto + f"🔗 {link}\n\n"
   
   return texto
+
 
 menu = """
 <a href="/">Página inicial</a> | <a href="/promocoes">PROMOÇÕES</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
