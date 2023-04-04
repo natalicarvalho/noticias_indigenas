@@ -143,10 +143,10 @@ else:
     if int(message) < len(dados_estast['termo']):
       texto_resposta = envia_links(dados_estast, int(message))
   except:
-      texto_resposta = "Não entendi a mensagem."  
- nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
- requests.post(f"https://api.telegram.org/bot{token}/sendMessage", data=nova_mensagem)
- mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta,])
+    texto_resposta = "Não entendi a mensagem."
+nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
+requests.post(f"https://api.telegram.org/bot{token}/sendMessage", data=nova_mensagem)
+mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta,])
 
 return envia_mensagem
 
