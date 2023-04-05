@@ -67,16 +67,16 @@ def pega_link(url_jornal):
   return links_que_tem_termos 
   
 def raspa_dados():
-  links_salvos = []
-  for link in lista_url:
-    print(link)
-  
-    resultados_link = pega_link(link)
-    if resultados_link is not None:
-      for x in resultados_link:
-        print(resultados_link)
-    
-    links_salvos.append(resultados_link)
+    links_salvos = []
+    for link in lista_url:
+        print(link)
+
+        resultados_link = pega_link(link)
+        if resultados_link is not None:
+            for x in resultados_link:
+                print(x)
+            links_salvos.extend(resultados_link)
+
     return links_salvos
 
 
