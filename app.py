@@ -104,47 +104,47 @@ def envia_links(dados, opcao):
     return texto
 
 def envia_mensagem():
-    update_id = 0
-    resposta = requests.get(f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/getUpdates?offset={update_id + 1}")
-    dados = resposta.json()["result"]  # lista de dicionários (cada dict é um "update")
-    print(f"Temos {len(dados)} novas atualizações:")
-    mensagens = []
-    for update in dados:
-        update_id = update["update_id"]
+  update_id = 0
+  resposta = requests.get(f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/getUpdates?offset={update_id + 1}")
+  dados = resposta.json()["result"]  # lista de dicionários (cada dict é um "update")
+  print(f"Temos {len(dados)} novas atualizações:")
+  mensagens = []
+  for update in dados:
+    update_id = update["update_id"]
 
         # Extrai dados para mostrar mensagem recebida
     first_name = update["message"]["from"]["first_name"]
     sender_id = update["message"]["from"]["id"]
     if "text" not in update["message"]:
-        continue  # Essa mensagem não é um texto!
+      continue  # Essa mensagem não é um texto!
     message = update["message"]["text"]
     chat_id = update["message"]["chat"]["id"]
     datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
     if "username" in update["message"]["from"]:
-        username = update["message"]["from"]["username"]
+      username = update["message"]["from"]["username"]
     else:
-        username = "[não definido]"
+      username = "[não definido]"
     print(f"[{datahora}] Nova mensagem de {first_name} @{username} ({chat_id}): {message}")
     mensagens.append([datahora, "recebida", username, first_name, chat_id, message])
 
         # Define qual será a resposta e envia
     texto_resposta = " "
     if message == "Oi":
-        texto_resposta = "Olá você iniciou o Bot de Notícias."
-        texto_resposta = conta_reportagem(dados_link['termo'],texto_resposta) 
+      texto_resposta = "Olá você iniciou o Bot de Notícias."
+      texto_resposta = conta_reportagem(dados_link['termo'],texto_resposta) 
     else:
-        try:
-            if int(message) < len(dados_link['termo']):
-                envia_links(dados_link, int(message))
+      try:
+        if int(message) < len(dados_link['termo']):
+          envia_links(dados_link, int(message))
                 
-        except:
-            texto_resposta = "Não entendi a mensagem."
+      except:
+        texto_resposta = "Não entendi a mensagem."
 
-     nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
-     requests.post(f"https://api.telegram.org/bot{token}/sendMessage", data=nova_mensagem)
-     mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta])
+  nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
+  requests.post(f"https://api.telegram.org/bot{token}/sendMessage", data=nova_mensagem)
+  mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta])
 
-     return mensagens
+  return mensagens
 
 
 
