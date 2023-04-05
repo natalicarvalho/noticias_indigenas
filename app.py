@@ -13,9 +13,9 @@ from bs4 import BeautifulSoup
 TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
 TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
 GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
-with open("credenciais.json", mode="r") as arquivo:
-    credenciais = arquivo.read()
-conta = ServiceAccountCredentials.from_json_keyfile_dict(credenciais)
+with open("credenciais.json", mode="w") as arquivo:
+    arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
+conta = ServiceAccountCredentials.from_json_keyfile_name("credenciais.json")
 api = gspread.authorize(conta)
 planilha = api.open_by_key("1cq-t7IEBSaBre7acHPVzqmegtkkhP9GgpMHpIyH5ZUw")
 sheet = planilha.worksheet("dados")
