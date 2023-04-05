@@ -29,6 +29,7 @@ lista_url = [
     'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss'
 ]
 
+# Adicionei dois pontos faltantes na linha do loop for para corrigir a indentação.
 def items(url):
     resp = requests.get(url)
     try:
@@ -39,36 +40,37 @@ def items(url):
 
     return data['rss']['channel']['item']
 
-  
+
 def pega_link(url_jornal):
     resultado = items(url_jornal)
     lista = []
-    for item in resultado
-    url = item.get('link')
-    desc = item.get('description')
-    tit = item.get('title')
-    dat = item.get('pubDate')
-    resultado_formatado = {"url": url,
-                          "descricao": desc, 
-                          "titulo": tit,
-                          "data": dat
-                          }
-    lista.append(resultado_formatado)
+    for item in resultado:  # Adicionei dois pontos faltantes na linha do loop for para corrigir a indentação.
+        url = item.get('link')
+        desc = item.get('description')
+        tit = item.get('title')
+        dat = item.get('pubDate')
+        resultado_formatado = {"url": url,
+                              "descricao": desc,
+                              "titulo": tit,
+                              "data": dat
+                              }
+        lista.append(resultado_formatado)
 
-  termos = ['indígena', 'Indígena', 'Yanomami', 'índio', 'demarcação']
-  links_que_tem_termos = []
+    termos = ['indígena', 'Indígena', 'Yanomami', 'índio', 'demarcação']
+    links_que_tem_termos = []
 
-  for item_formatado in lista:
-  
-    for termo in termos:
-      if termo in item_formatado["descricao"]:
-        print(item_formatado["titulo"])
-       
-        links_que_tem_termos.append([termo, item_formatado["url"]])
-        #break  
+    for item_formatado in lista:
 
-  return links_que_tem_termos 
-  
+        for termo in termos:
+            if termo in item_formatado["descricao"]:
+                print(item_formatado["titulo"])
+
+                links_que_tem_termos.append([termo, item_formatado["url"]])
+                # break
+
+    return links_que_tem_termos
+
+
 def raspa_dados():
     links_salvos = []
     for link in lista_url:
@@ -81,6 +83,9 @@ def raspa_dados():
             links_salvos.extend(resultados_link)
 
     return links_salvos
+
+
+dados_link = raspa_dados()  
 
 
 dados_link = []
