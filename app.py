@@ -135,7 +135,7 @@ def envia_mensagem():
         else:
             try:
                 if int(message) < len(dados_link['termo']):
-            envia_links(dados_link, int(message))
+                    envia_links(dados_link, int(message))
             except:
                 texto_resposta = "Não entendi a mensagem."
 
