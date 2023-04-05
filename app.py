@@ -92,8 +92,9 @@ for dado in links_salvos:
         print(item)
         dados_link.append(item)  
 
-dados_estast = pd.DataFrame(dados_link, columns=["termo", "link"])
-dados_estast    
+dados_estast = pd.DataFrame(dados_link)
+dados_estast.columns = ["termo", "link"]
+   
     
 def envia_links(dados, opcao):
     opcao = opcao - 1
