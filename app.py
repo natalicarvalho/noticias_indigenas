@@ -181,7 +181,7 @@ def dedoduro2():
 @app.route("/jornais")
 def jornais():
     resp = requests.get(dados_link)
-    mensagem = {"chat_id": chat, "text": resp.text()}
+    mensagem = {"chat_id": TELEGRAM_ADMIN_ID, "text": resp.text()}
     requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
     return "Aqui está os termos"
  
