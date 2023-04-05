@@ -131,11 +131,11 @@ def envia_mensagem():
         texto_resposta = " "
         if message == "Oi":
             texto_resposta = "Olá você iniciou o Bot de Notícias."
-            texto_resposta = conta_reportagem(dados_estast['termo'],texto_resposta) 
+            texto_resposta = conta_reportagem(dados_link['termo'],texto_resposta) 
         else:
             try:
-                if int(message) < len(dados_estast['termo']):
-                    texto_resposta = envia_links(dados_estast, int(message))
+                if int(message) < len(dados_link['termo']):
+                    texto_resposta = envia_links(dados_link, int(message))
             except:
                 texto_resposta = "Não entendi a mensagem."
 
