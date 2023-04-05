@@ -1,30 +1,33 @@
 import os
-
-import gspread
-import requests
+import datetime
 import xmltodict
 import requests
 import pandas as pd
-from bs4 import BeautifulSoup
 from flask import Flask, request
 from oauth2client.service_account import ServiceAccountCredentials
+from bs4 import BeautifulSoup
+import gspread
 
 
 TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
 TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
 GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
-with open("credenciais.json", mode="w") as arquivo:
-  arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
-conta = ServiceAccountCredentials.from_json_keyfile_name("credenciais.json")
+with open("credenciais.json", mode="r") as arquivo:
+    credenciais = arquivo.read()
+conta = ServiceAccountCredentials.from_json_keyfile_dict(credenciais)
 api = gspread.authorize(conta)
 planilha = api.open_by_key("1cq-t7IEBSaBre7acHPVzqmegtkkhP9GgpMHpIyH5ZUw")
 sheet = planilha.worksheet("dados")
 app = Flask(__name__)
 
 
-lista_url = ['https://feeds.folha.uol.com.br/ambiente/rss091.xml','https://extra.globo.com/rss.xml', 'https://www.gazetadopovo.com.br/rss/', 'https://g1.globo.com/rss/g1/', 'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss']
-for url in lista_url:     # por item
-    print(url)
+lista_url = [
+    'https://feeds.folha.uol.com.br/ambiente/rss091.xml',
+    'https://extra.globo.com/rss.xml',
+    'https://www.gazetadopovo.com.br/rss/',
+    'https://g1.globo.com/rss/g1/',
+    'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss'
+]
 
 def items(url):
     resp = requests.get(url)
@@ -33,14 +36,14 @@ def items(url):
     except Exception as error:
         print(f"Erro baixando dados de {url}: {error}")
         return []
-        
+
     return data['rss']['channel']['item']
 
   
 def pega_link(url_jornal):
-  resultado = items(url_jornal)
-  lista = []
-  for item in resultado:
+    resultado = items(url_jornal)
+    lista = []
+    for item in resultado
     url = item.get('link')
     desc = item.get('description')
     tit = item.get('title')
