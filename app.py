@@ -131,6 +131,22 @@ def print_para_o_render(update):
     )
    
     
+def envia_mensagem(update): 
+    if "text" not in update["message"]:
+        return  # Essa mensagem não é um texto!
+        
+    print_para_o_render(update)
+    
+    message = update["message"]["text"]
+    chat_id = update["message"]["chat"]["id"]
+    
+    dados = raspa_dados()
+    text = criar_resposta(message, dados)
+    nova_mensagem = {"chat_id": chat_id, "text": text}
+    requests.post(
+        f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage",
+        data=nova_mensagem,
+    )
 
 menu = """
 <a href="/">Página inicial</a> |
@@ -159,24 +175,17 @@ def dedoduro():
   resposta = requests.post(f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
   return f"Mensagem enviada. Resposta ({resposta.status_code}): {resposta.text}"
 
-         
- 
-@app.route("/jornais", methods=["POST"])
-def jornais():
-    envia_mensagem(request.json)
-    if "text" not in update["message"]:
-        return  # Essa mensagem não é um texto!
-        
-    print_para_o_render(update)
-    
-    message = update["message"]["text"]
-    chat_id = update["message"]["chat"]["id"]
-    
-    dados = raspa_dados()
-    text = criar_resposta(message, dados)
-    nova_mensagem = {"chat_id": chat_id, "text": text}
-    requests.post(
-        f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage",
-        data=nova_mensagem,
-    )
-    return "ok"
+
+@app.route("/telegram-bot", methods=["POST"])
+def telegram_bot():
+  update = request.json
+  chat_id = update["message"]["chat"]["id"]
+  message = update["message"]["text"]
+  nova_mensagem = {
+    "chat_id": chat_id,
+    "text": f"Você enviou a mensagem: <b>{message}</b>",
+    "parse_mode": "HTML",
+  }
+  resposta = requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
+  print(resposta.text)
+  return "ok"
