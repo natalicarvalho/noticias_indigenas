@@ -177,7 +177,7 @@ def dedoduro():
 
          
  
-@app.route("/jornais")
+@app.route("/jornais", , methods=["POST"])
 def jornais():
     envia_mensagem(request.json)
     return "ok"
