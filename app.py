@@ -2,23 +2,13 @@ import os
 import datetime
 import xmltodict
 import requests
-import gspread
-import pandas as pd
 from flask import Flask, request
-from oauth2client.service_account import ServiceAccountCredentials
-from bs4 import BeautifulSoup
 
 
 
 TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
 TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
-GOOGLE_SHEETS_CREDENTIALS = os.environ["GOOGLE_SHEETS_CREDENTIALS"]
-with open("credenciais.json", mode="w") as arquivo:
-    arquivo.write(GOOGLE_SHEETS_CREDENTIALS)
-conta = ServiceAccountCredentials.from_json_keyfile_name("credenciais.json")
-api = gspread.authorize(conta)
-planilha = api.open_by_key("1cq-t7IEBSaBre7acHPVzqmegtkkhP9GgpMHpIyH5ZUw")
-sheet = planilha.worksheet("dados")
+
 app = Flask(__name__)
 
 
@@ -80,18 +70,40 @@ def raspa_dados():
             for x in resultados_link:
                 print(x)
             links_salvos.extend(resultados_link)
-
-    return links_salvos
-
-
-links_salvos = raspa_dados()
-dados_link = []
-
-for dado in links_salvos:
-    for item in dado:
-        print(item)
-        dados_link.append(item)  
+            
+    dados_link = []
+    for link in links_salvos():
+        for item in dado:
+            print(item)
+            dados_link.append(item)
+    return dados_link
+          
    
+def conta_reportagem(dados, texto_resposta):
+    header = "\nQuantidade de reportagens por tema, selecione o número para receber as urls:\n"
+    texto_resposta += header
+    numero_contador = 0
+    for termo, quantidade in dados.value_counts().iteritems():
+      numero_contador = numero_contador + 1
+      print(termo, quantidade)
+      texto_resposta += f"{str(numero_contador)} - {termo}: {quantidade}\n"
+    
+    return texto_resposta
+
+def criar_resposta(message, dados):
+    texto_resposta = " "
+    if message == "Oi":
+        texto_resposta = "Olá você iniciou o Bot de Notícias."
+        texto_resposta = conta_reportagem(dados['termo'],texto_resposta) 
+    else:
+        try:
+            if int(message) < len(dados['termo']):
+                envia_links(dados, int(message))
+                
+        except ValueError:
+            texto_resposta = "Não entendi a mensagem."
+    
+    return texto_resposta
     
 def envia_links(dados, opcao):
     opcao = opcao - 1
@@ -103,53 +115,44 @@ def envia_links(dados, opcao):
   
     return texto
 
-def envia_mensagem():
-  update_id = 0
-  resposta = requests.get(f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/getUpdates?offset={update_id + 1}")
-  dados = resposta.json()["result"]  # lista de dicionários (cada dict é um "update")
-  print(f"Temos {len(dados)} novas atualizações:")
-  mensagens = []
-  for update in dados:
-    update_id = update["update_id"]
-
-        # Extrai dados para mostrar mensagem recebida
+def print_para_o_render(update):
     first_name = update["message"]["from"]["first_name"]
-    sender_id = update["message"]["from"]["id"]
-    if "text" not in update["message"]:
-      continue  # Essa mensagem não é um texto!
     message = update["message"]["text"]
     chat_id = update["message"]["chat"]["id"]
     datahora = str(datetime.datetime.fromtimestamp(update["message"]["date"]))
+    
     if "username" in update["message"]["from"]:
-      username = update["message"]["from"]["username"]
+        username = update["message"]["from"]["username"]
     else:
-      username = "[não definido]"
-    print(f"[{datahora}] Nova mensagem de {first_name} @{username} ({chat_id}): {message}")
-    mensagens.append([datahora, "recebida", username, first_name, chat_id, message])
-
-        # Define qual será a resposta e envia
-    texto_resposta = " "
-    if message == "Oi":
-      texto_resposta = "Olá você iniciou o Bot de Notícias."
-      texto_resposta = conta_reportagem(dados_link['termo'],texto_resposta) 
-    else:
-      try:
-        if int(message) < len(dados_link['termo']):
-          envia_links(dados_link, int(message))
-                
-      except:
-        texto_resposta = "Não entendi a mensagem."
-
-  nova_mensagem = {"chat_id": chat_id, "text": texto_resposta}
-  requests.post(f"https://api.telegram.org/bot{token}/sendMessage", data=nova_mensagem)
-  mensagens.append([datahora, "enviada", username, first_name, chat_id, texto_resposta])
-
-  return mensagens
-
-
+        username = "[não definido]"
+        
+    print(
+        f"[{datahora}] Nova mensagem de {first_name} @{username} ({chat_id}): {message}"
+    )
+   
+    
+def envia_mensagem(update): 
+    if "text" not in update["message"]:
+        return  # Essa mensagem não é um texto!
+        
+    print_para_o_render(update)
+    
+    message = update["message"]["text"]
+    chat_id = update["message"]["chat"]["id"]
+    
+    dados = raspa_dados()
+    text = criar_resposta(message, dados)
+    nova_mensagem = {"chat_id": chat_id, "text": text}
+    requests.post(
+        f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage",
+        data=nova_mensagem,
+    )
 
 menu = """
-<a href="/">Página inicial</a> | <a href="/promocoes">PROMOÇÕES</a> | <a href="/sobre">Sobre</a> | <a href="/contato">Contato</a>
+<a href="/">Página inicial</a> |
+<a href="/promocoes">PROMOÇÕES</a> |
+<a href="/sobre">Sobre</a> |
+<a href="/contato">Contato</a>
 <br>
 """
 
@@ -172,17 +175,9 @@ def dedoduro():
   resposta = requests.post(f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
   return f"Mensagem enviada. Resposta ({resposta.status_code}): {resposta.text}"
 
-
-@app.route("/dedoduro2")
-def dedoduro2():
-  sheet.append_row(["Natali", "Carvalho", "a partir do Flask"])
-  return "Planilha escrita!"
          
  
-@app.route("/jornais")
+@app.route("/jornais", methods=["POST"])
 def jornais():
-    mensagem = {"chat_id": TELEGRAM_ADMIN_ID, "text": resp.text()}
-    requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
-    return "Aqui estão os termos"
- 
-
+    envia_mensagem(request.json)
+    return "ok"
