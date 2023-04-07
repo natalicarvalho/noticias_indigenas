@@ -127,33 +127,28 @@ def dedoduro():
   resposta = requests.post(f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage", data=mensagem)
   return f"Mensagem enviada. Resposta ({resposta.status_code}): {resposta.text}"
 
-         
+@app.route("/telegram-bot", methods=["POST"])
+def telegram_bot():
+  update = request.json
+  chat_id = update["message"]["chat"]["id"]
+  message = update["message"]["text"]
+  nova_mensagem = {
+    "chat_id": chat_id,
+    "text": f"Você enviou a mensagem: <b>{message}</b>",
+    "parse_mode": "HTML",
+  }
+  resposta = requests.post(f"https://api.telegram.org./bot{TELEGRAM_API_KEY}/sendMessage", data=nova_mensagem)
+  print(resposta.text)
+  return "ok"         
  
 @app.route("/jornais", methods=["POST"])
 def jornais():
-    envia_mensagem(request.json)
-    return "ok"
-def criar_resposta(message, dados):
-    texto_resposta = " "
-    if message == "Oi":
-        texto_resposta = "Olá você iniciou o Bot de Notícias."
-        texto_resposta = conta_reportagem(dados['termo'],texto_resposta) 
-    else:
-        try:
-            if int(message) < len(dados['termo']):
-                envia_links(dados, int(message))
-                
-        except ValueError:
-            texto_resposta = "Não entendi a mensagem."
-    
-    return texto_resposta
-def envia_mensagem(update): 
+    update = request.json
+    chat_id = update 
     if "text" not in update["message"]:
-        return  # Essa mensagem não é um texto!
-        
+        return  # Essa mensagem não é um texto!  
     message = update["message"]["text"]
     chat_id = update["message"]["chat"]["id"]
-    
     dados = raspa_dados()
     text = criar_resposta(message, dados)
     nova_mensagem = {"chat_id": chat_id, "text": text}
@@ -161,3 +156,6 @@ def envia_mensagem(update):
         f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage",
         data=nova_mensagem,
     )
+    envia_mensagem(request.json)
+    return "ok"
+ 
