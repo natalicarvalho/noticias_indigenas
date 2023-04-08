@@ -43,11 +43,11 @@ def criar_resposta(message, dados):
     
 def envia_links(dados, opcao):
     opcao = opcao - 1
-    termo = dados['termo'].value_counts().keys()[opcao]
+    termo = dados['termo'].value_counts().index[opcao]
     links_dos_termos = dados[dados['termo']== termo]['link']
     texto = ''
     for link in links_dos_termos:
-        texto = texto + f"U+1F4CE {link}\n\n"
+        texto = texto + f"U0001F4CE {link}\n\n"
   
     return texto
 
