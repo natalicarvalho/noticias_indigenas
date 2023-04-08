@@ -3,6 +3,7 @@ import datetime
 import xmltodict
 import requests
 from flask import Flask, request
+from raspagem import items, pega_link, raspa_dados 
 
 
 lista_url = [
