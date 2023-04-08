@@ -66,7 +66,7 @@ def raspa_dados():
             links_salvos.extend(resultados_link)
             
     dados_link = []
-    for link in links_salvos():
+    for link in links_salvos:
         for item in link:
             print(item)
             dados_link.append(item)
