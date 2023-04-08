@@ -11,8 +11,6 @@ TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
 
 app = Flask(__name__)
 
-dados = raspa_dados()
-texto_resposta = pega_link()
 
 def conta_reportagem(dados, texto_resposta):
     header = "\nQuantidade de reportagens por tema, selecione o número para receber as urls:\n"
