@@ -11,6 +11,9 @@ TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
 
 app = Flask(__name__)
 
+dados = raspa_dados()
+texto_resposta = pega_link()
+
 def conta_reportagem(dados, texto_resposta):
     header = "\nQuantidade de reportagens por tema, selecione o número para receber as urls:\n"
     texto_resposta += header
@@ -43,7 +46,7 @@ def envia_links(dados, opcao):
     links_dos_termos = dados[dados['termo']== termo]['link']
     texto = ''
     for link in links_dos_termos:
-        texto = texto + f"🔗 {link}\n\n"
+        texto = texto + f"U+1F4CE {link}\n\n"
   
     return texto
 
