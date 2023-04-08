@@ -11,6 +11,9 @@ TELEGRAM_ADMIN_ID = os.environ["TELEGRAM_ADMIN_ID"]
 
 app = Flask(__name__)
 
+dados = raspa_dados()
+texto_resposta = conta_reportagem()
+
 def conta_reportagem(dados, texto_resposta):
     header = "\nQuantidade de reportagens por tema, selecione o número para receber as urls:\n"
     texto_resposta += header
@@ -20,7 +23,7 @@ def conta_reportagem(dados, texto_resposta):
       print(termo, quantidade)
       texto_resposta += f"{str(numero_contador)} - {termo}: {quantidade}\n"
     
-    return texto_resposta
+    return texto_resposta
 
 def criar_resposta(message, dados):
     texto_resposta = " "
