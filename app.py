@@ -43,7 +43,7 @@ def criar_resposta(message, dados):
     
 def envia_links(dados, opcao):
     opcao = opcao - 1
-    termo = dados['termo'].value_counts().index[opcao]
+    termo = dados['termo'].value_counts().keys()[opcao]
     links_dos_termos = dados[dados['termo']== termo]['link']
     texto = ''
     for link in links_dos_termos:
