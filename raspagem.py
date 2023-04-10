@@ -3,6 +3,7 @@ import datetime
 import xmltodict
 import requests
 from flask import Flask, request
+import pandas as pd
 
 
 
@@ -71,6 +72,5 @@ def raspa_dados():
             print(item)
             dados_link.append(item)
     return dados_link
-          
-   
+             
 dados_estast = pd.DataFrame(dados_link, columns=["termo", "link"])
