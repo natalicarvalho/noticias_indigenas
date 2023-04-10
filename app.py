@@ -74,6 +74,7 @@ def contato():
  
 @app.route("/telegrambot", methods=["POST"])
 def telegrambot():
+    update = request.json
     message = update["message"]["text"]
     chat_id = update["message"]["chat"]["id"]
     
