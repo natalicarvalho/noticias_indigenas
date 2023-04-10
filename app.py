@@ -4,7 +4,6 @@ import xmltodict
 import requests
 from flask import Flask, request
 from raspagem import pega_link, raspa_dados 
-import pandas as pd
 
 
 TELEGRAM_API_KEY = os.environ["TELEGRAM_API_KEY"]
