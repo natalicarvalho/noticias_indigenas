@@ -73,3 +73,4 @@ def raspa_dados():
     return dados_link
           
    
+dados_estast = pd.DataFrame(dados_link, columns=["termo", "link"])
