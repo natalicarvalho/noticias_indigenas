@@ -4,4 +4,3 @@ requests
 BeautifulSoup4
 datetime
 xmltodict
-pandas
