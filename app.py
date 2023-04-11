@@ -41,14 +41,14 @@ def criar_resposta(message, dados):
     return texto_resposta
     
 def envia_links(dados, opcao):
-    opcao = opcao - 1
-    termo = dados['termo'].value_counts().keys()[opcao]
-    links_dos_termos = dados[dados['termo']== termo]['link']
-    texto = ''
-    for link in links_dos_termos:
-        texto = texto + f"🔗 {link}\n\n"
+  opcao = opcao - 1
+  termo = dados['termo'].value_counts().keys()[opcao]
+  links_dos_termos = dados[dados['termo']== termo]['link']
+  texto = ''
+  for link in links_dos_termos:
+   texto = texto + f"🔗 {link}\n\n"
   
-    return texto
+  return texto
 
 
 
