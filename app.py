@@ -29,16 +29,16 @@ def criar_resposta(message, dados):
     texto_resposta = " "
     if message == "Oi":
         texto_resposta = "Olá você iniciou o Bot de Notícias."
-        texto_resposta = conta_reportagem(dados,texto_resposta) 
+        texto_resposta = conta_reportagem(dados['termo'],texto_resposta) 
     else:
         try:
-            if int(message) < len(dados):
+            if int(message) < len(dados['termo']):
                 envia_links(dados, int(message))
                 
         except ValueError:
             texto_resposta = "Não entendi a mensagem."
     
-    return texto_resposta
+    return texto_resposta
     
 def envia_links(dados, opcao):
     opcao = opcao - 1
