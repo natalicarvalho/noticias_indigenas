@@ -74,4 +74,4 @@ def raspa_dados():
             dados_link.append(item)
     return dados_link
              
-df = pd.DataFrame(dados_link, columns=("termo", "link"))
+df = pd.DataFrame(dados, columns=("termo", "link"))
