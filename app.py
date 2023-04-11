@@ -46,7 +46,7 @@ def envia_links(dados, opcao):
     links_dos_termos = dados[dados['termo']== termo]['link']
     texto = ''
     for link in links_dos_termos:
-        texto = texto + f" {link}\n\n"
+        texto = texto + f"🔗 {link}\n\n"
   
     return texto
 
