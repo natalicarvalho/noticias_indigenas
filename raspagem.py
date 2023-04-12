@@ -72,7 +72,11 @@ def raspa_dados():
         for item in link:
             print(item)
             dados_link.append(item)
+        
             
+    return dados_link
+
+
 lista_site = [
     'https://feeds.folha.uol.com.br/ambiente/rss091.xml',
     'https://extra.globo.com/rss.xml',
@@ -85,6 +89,4 @@ termos = ['indígena', 'Indígena', 'Yanomami', 'índio', 'demarcação']
 dados = {"URLs": lista_site, "termos": termos}
 df = pd.DataFrame(dados)
 df                  
-            
-            
-    return dados_link
+     
