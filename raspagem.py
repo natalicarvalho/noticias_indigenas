@@ -74,6 +74,16 @@ def raspa_dados():
             dados_link.append(item)
     return dados_link
              
-dados = raspa_dados()
-df = pd.DataFrame(dados, columns=("termo", "link"))
+
+lista_site = [
+    'https://feeds.folha.uol.com.br/ambiente/rss091.xml',
+    'https://extra.globo.com/rss.xml',
+    'https://www.gazetadopovo.com.br/rss/',
+    'https://g1.globo.com/rss/g1/',
+    'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss'
+]
+termos = ['indígena', 'Indígena', 'Yanomami', 'índio', 'demarcação']
+
+dados = {"URLs": lista_site, "termos": termos}
+df = pd.DataFrame(dados)
 df
