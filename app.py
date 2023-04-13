@@ -34,8 +34,7 @@ def criar_resposta(message, dados):
     else:
         try:
             if int(message) < len(dados):
-                envia_links(dados, int(message))
-                
+                texto_resposta = envia_links(dados, int(message))
         except ValueError:
             texto_resposta = "Não entendi a mensagem."
     
@@ -44,13 +43,12 @@ def criar_resposta(message, dados):
 def envia_links(dados, opcao):
     opcao = opcao - 1
     termo = dados['termo'].value_counts().keys()[opcao]
-    links_dos_termos = dados[dados['termo']== termo]['link']
+    links_dos_termos = dados[dados['termo'] == termo]['link']
     texto = ''
     for link in links_dos_termos:
         texto = texto + f"🔗 {link}\n\n"
   
     return texto
-
 
 
 menu = """
