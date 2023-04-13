@@ -42,19 +42,9 @@ def criar_resposta(message, dados):
     return texto_resposta
     
 def envia_links(dados, opcao):
-    if not isinstance(dados, pd.DataFrame):
-        raise TypeError("Os dados fornecidos não são um DataFrame.")
-    if not isinstance(opcao, int):
-        raise TypeError("A opção selecionada deve ser um número inteiro.")
-    if opcao < 1 or opcao > len(dados['termo'].unique()):
-        raise ValueError("A opção selecionada é inválida.")
-    
     opcao = opcao - 1
     termo = dados['termo'].value_counts().keys()[opcao]
-    links_dos_termos = dados[dados['termo'] == termo]['link']
-    print("Opcao:", opcao)
-    print("Termo:", termo)
-    print("Links dos termos:", links_dos_termos)
+    links_dos_termos = dados[dados['termo']== termo]['link']
     texto = ''
     for link in links_dos_termos:
         texto = texto + f"🔗 {link}\n\n"
