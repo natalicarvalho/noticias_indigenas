@@ -42,7 +42,7 @@ def pega_link(url_jornal):
                               }
         lista.append(resultado_formatado)
 
-    termos = ['indígena', 'Indígena', 'Yanomami', 'índio', 'demarcação']
+    termos = ['indígena', 'Indígena', 'Yanomami', 'demarcação', 'garimpo']
     links_que_tem_termos = []
 
     for item_formatado in lista:
