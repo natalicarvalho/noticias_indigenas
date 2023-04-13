@@ -1,0 +1,1 @@
+O Bot de notícias indígenas tem como proposito o seu nome, fazer a raspagem de algum dos maiores veículos jornalísticos do país e captar a quantidade de material que teve termos que fazem sentido à causa indígena, como: "Indígena", "indígena", "Yanomami", "Garimpo ilegal", "demarcação territorial".
