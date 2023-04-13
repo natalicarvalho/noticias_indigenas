@@ -2,6 +2,7 @@ import os
 import datetime
 import xmltodict
 import requests
+import pandas as pd
 from flask import Flask, request
 from raspagem import pega_link, raspa_dados 
 
