@@ -43,7 +43,7 @@ def criar_resposta(message, dados):
 def envia_links(dados, opcao):
     opcao = opcao - 1
     termo = dados['termo'].value_counts().keys()[opcao]
-    links_dos_termos = dados[dados['termo']== termo]['link']
+    links_dos_termos = dados[dados['termo'] == termo]['link']
     print("Opcao:", opcao)
     print("Termo:", termo)
     print("Links dos termos:", links_dos_termos)
@@ -52,6 +52,7 @@ def envia_links(dados, opcao):
         texto = texto + f"🔗 {link}\n\n"
   
     return texto
+
 
 menu = """
 <a href="/">Página inicial</a> |
