@@ -44,13 +44,12 @@ def envia_links(dados, opcao):
     opcao = opcao - 1
     termo = dados['termo'].value_counts().keys()[opcao]
     links_dos_termos = dados[dados['termo']== termo]['link']
+    print("Opcao:", opcao)
+    print("Termo:", termo)
+    print("Links dos termos:", links_dos_termos)
     texto = ''
     for link in links_dos_termos:
-        texto = texto + f"🔗 {link}\n\n
-      
-print(links_dos_termos)
-print(opcao)
-print(termo)
+        texto = texto + f"🔗 {link}\n\n"
   
     return texto
 
