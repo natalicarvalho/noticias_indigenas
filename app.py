@@ -64,7 +64,7 @@ def index():
 
 @app.route("/sobre")
 def sobre():
-  return menu + "O robozinho tem a função de fazer raspagem de quatro grandes jornais do país: Folha de S. Paulo, G1, Globo e UOL, e buscar matérias que tenham relação com a causa indígena por meio de buscas de termos como "indígena", "garimpo", "demarcação", "yanomami". Além dele mandar a quantidade de reportagens que saíram com os termos, ele também manda os links das notícias para que você possa ler. Para falar com o robozinho clique aqui ou procure @noticias_indigenas_bot no Telegram"
+  return menu + "O robozinho tem a função de fazer raspagem de quatro grandes jornais do país: Folha de S. Paulo, G1, Globo e UOL, e buscar matérias que tenham relação com a causa indígena"
 
 @app.route("/contato")
 def contato():
