@@ -46,14 +46,13 @@ def envia_links(dados, opcao):
     links_dos_termos = dados[dados['termo']== termo]['link']
     texto = ''
     for link in links_dos_termos:
-        texto = texto + f"🔗 {link}\n\n"
-  
-    return texto
-
+        texto = texto + f"🔗 {link}\n\n
+      
 print(links_dos_termos)
 print(opcao)
 print(termo)
-
+  
+    return texto
 
 menu = """
 <a href="/">Página inicial</a> |
