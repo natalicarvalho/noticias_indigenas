@@ -18,10 +18,10 @@ def conta_reportagem(dados, texto_resposta):
     header = "\nQuantidade de reportagens por tema, selecione o número para receber as urls:\n"
     texto_resposta += header
     numero_contador = 0
-    for termo, quantidade in dados.value_counts().iteritems():
-      numero_contador = numero_contador + 1
-      print(termo, quantidade)
-      texto_resposta += f"{str(numero_contador)} - {termo}: {quantidade}\n"
+    for termo, quantidade in dados.groupby('termo').size().iteritems():
+        numero_contador = numero_contador + 1
+        print(termo, quantidade)
+        texto_resposta += f"{str(numero_contador)} - {termo}: {quantidade}\n"
     
     return texto_resposta
 
