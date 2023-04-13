@@ -11,7 +11,6 @@ from flask import Flask, request
 lista_url = [
     'https://feeds.folha.uol.com.br/ambiente/rss091.xml',
     'https://extra.globo.com/rss.xml',
-    'https://www.gazetadopovo.com.br/rss/',
     'https://g1.globo.com/rss/g1/',
     'https://www.uol.com.br/vueland/api/?loadComponent=XmlFeedRss'
 ]
