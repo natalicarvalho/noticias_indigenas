@@ -65,15 +65,10 @@ def raspa_dados():
         if resultados_link is not None:
             for x in resultados_link:
                 print(x)
-            links_salvos.append(resultados_link)
+            links_salvos.extend(resultados_link)
             
-    dados_link = []
-    for link in links_salvos:
-        for item in link:
-            print(item)
-            dados_link.append(item)
+    dados_link = pd.DataFrame(links_salvos, columns=["termo", "link"])
         
-            
     return dados_link
 
 
