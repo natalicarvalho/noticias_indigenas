@@ -42,14 +42,17 @@ def criar_resposta(message, dados):
     
 def envia_links(dados, opcao):
     opcao = opcao - 1
-    termo = dados['termos'].value_counts().keys()[opcao]
-    links_dos_termos = dados[dados['termos']== termo]['link']
+    termo = dados['termo'].value_counts().keys()[opcao]
+    links_dos_termos = dados[dados['termo']== termo]['link']
     texto = ''
     for link in links_dos_termos:
         texto = texto + f"🔗 {link}\n\n"
   
     return texto
 
+print(links_dos_termos)
+print(opcao)
+print(termo)
 
 
 menu = """
