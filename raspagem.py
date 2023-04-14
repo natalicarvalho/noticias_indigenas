@@ -47,14 +47,13 @@ def pega_link(url_jornal):
 
 def encontrar_links(lista, termos):
     links_que_tem_termos = []
-
+    
     for item_formatado in lista:
-        if "descricao" in item_formatado and item_formatado["descricao"] is not None:
-            for termo in termos:
-                if termo in item_formatado["descricao"]:
-                    if "titulo" in item_formatado and item_formatado["titulo"] is not None:
-                        print(item_formatado["titulo"])
-                    links_que_tem_termos.append([termo, item_formatado["url"]])
+        for termo in termos:
+            if termo in item_formatado["descricao"]:
+                print(item_formatado["titulo"])
+                links_que_tem_termos.append([termo, item_formatado["url"]])
+                # break
 
     return links_que_tem_termos
 
