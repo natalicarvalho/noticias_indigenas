@@ -45,9 +45,6 @@ def pega_link(url_jornal):
     termos = ['indígena', 'Indígena', 'Yanomami', 'demarcação', 'garimpo']
     links_que_tem_termos = []
 
-def encontrar_links(lista, termos):
-    links_que_tem_termos = []
-    
     for item_formatado in lista:
         for termo in termos:
             if termo in item_formatado["descricao"]:
@@ -56,7 +53,6 @@ def encontrar_links(lista, termos):
                 # break
 
     return links_que_tem_termos
-
 
 
 def raspa_dados():
@@ -86,5 +82,4 @@ termos = ['indígena', 'Indígena', 'Yanomami', 'índio', 'demarcação']
 
 dados = {"URLs": lista_site, "termos": termos}
 df = pd.DataFrame(dados)
-df                  
-     
+df 
